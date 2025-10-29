@@ -96,7 +96,7 @@ const BaseForm = () => {
 
             {errors?.passwordConfirmation?.type === 'validate' && 
             <p role='alert' className={styles.error}>
-              Passwords do not match
+              Passwords must be same
             </p>}
         </div>
 
