@@ -21,7 +21,7 @@ const BaseForm = () => {
         <div className={styles.field}>
           <label className={styles.label}>Name</label>
           <input
-            className={styles.input}
+            className={errors?.name ? styles.inputError : styles.input}
             type="text"
             placeholder="Type your name"
             {...register('name', {required: true})}
@@ -35,7 +35,7 @@ const BaseForm = () => {
         <div className={styles.field}>
           <label className={styles.label}>Email</label>
           <input
-            className={styles.input}
+            className={errors?.email ? styles.inputError : styles.input}
             type="email"
             placeholder="Type your email"
             {...register('email', {required: true})}
@@ -49,7 +49,7 @@ const BaseForm = () => {
         <div className={styles.field}>
           <label className={styles.label}>Password</label>
           <input
-            className={styles.input}
+            className={errors?.password ? styles.inputError : styles.input}
             type="password"
             placeholder="Create a password"
             {...register('password', {required: true, minLength: 3})}
@@ -57,6 +57,26 @@ const BaseForm = () => {
             {errors?.password?.type === 'minLength' && 
             <p role='alert' className={styles.error}>
               Password must have at least 3 characters
+            </p>}
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label}>Role</label>
+          <select className={styles.select}
+            {...register("role", { validate: (value) => {
+              return value !== '0';
+            }})}
+            >
+            <option value='0'>Choose your Role ... </option>
+            <option value='frontend'>FrontEnd Developer</option>
+            <option value='backend'>BackEnd Developer</option>
+            <option value='fullstack'>FullStack Developer</option>
+            <option value='devops'>Devops Engineer</option>
+            <option value='tester'>Software Tester</option>
+          </select>
+            {errors?.role?.type === 'validate' && 
+            <p role='alert' className={styles.error}>
+              Role is required
             </p>}
         </div>
 

@@ -41,6 +41,24 @@
   color: var(--text-color);
 }
 
+.inputError { 
+  padding: 0.6rem;
+  background-color: var(--detail-color);
+  border: 1px solid var(--error-color);
+  border-radius: 5px;
+  outline: none;
+  color: var(--error-color);
+}
+
+.select {
+  padding: 0.6rem;
+  background-color: var(--detail-color);
+  border: 1px solid var(--background-color);
+  border-radius: 5px;
+  outline: none;
+  color: var(--text-color);
+}
+
 .error {
   color: var(--error-color);
   font-size: 0.9rem;
