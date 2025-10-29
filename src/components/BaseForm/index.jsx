@@ -1,17 +1,21 @@
 import { useForm } from 'react-hook-form';
 import styles from './Form.module.css'
+import isEmail from 'validator/lib/isEmail';
 
 const BaseForm = () => {
     
   const { 
     register,
     handleSubmit, 
+    watch,
     formState: {errors} 
   } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
   }
+
+  const watchPassword = watch('password');
 
   return (
     <div className={styles.formContainer}>
@@ -38,12 +42,21 @@ const BaseForm = () => {
             className={errors?.email ? styles.inputError : styles.input}
             type="email"
             placeholder="Type your email"
-            {...register('email', {required: true})}
+            {...register('email', {
+              required: true,
+              validate: (value) => isEmail(value)})}
             />
+
             {errors?.email?.type === 'required' && 
             <p role='alert' className={styles.error}>
               Email is required
             </p>}
+
+            {errors?.email?.type === 'validate' && 
+            <p role='alert' className={styles.error}>
+              Type a valid email
+            </p>}
+
         </div>
 
         <div className={styles.field}>
@@ -54,9 +67,36 @@ const BaseForm = () => {
             placeholder="Create a password"
             {...register('password', {required: true, minLength: 3})}
             />
+            {errors?.password?.type === 'required' && 
+            <p role='alert' className={styles.error}>
+              Password is required
+            </p>}
             {errors?.password?.type === 'minLength' && 
             <p role='alert' className={styles.error}>
               Password must have at least 3 characters
+            </p>}
+        </div>
+
+        <div className={styles.field}>
+          <label className={styles.label}>Password Confirmation</label>
+          <input
+            className={errors?.passwordConfirmation ? styles.inputError : styles.input}
+            type="password"
+            placeholder="Type your password again"
+            {...register('passwordConfirmation', {
+              required: true, 
+              validate: (value) => value === watchPassword,
+            })}
+            />
+
+            {errors?.passwordConfirmation?.type === 'required' && 
+            <p role='alert' className={styles.error}>
+              Password Confirmation is required
+            </p>}
+
+            {errors?.passwordConfirmation?.type === 'validate' && 
+            <p role='alert' className={styles.error}>
+              Passwords do not match
             </p>}
         </div>
 
