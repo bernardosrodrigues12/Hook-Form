@@ -1,10 +1,10 @@
-import BaseForm from './components/BaseForm'
+import UserForm from './components/UserForm'
 import './App.css'
 
 function App() {
   return (
     <>
-      <BaseForm />  
+      <UserForm />  
     </>
   )
 }

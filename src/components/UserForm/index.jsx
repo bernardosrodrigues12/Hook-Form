@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import styles from './Form.module.css'
+import styles from './UserForm.module.css'
 import isEmail from 'validator/lib/isEmail';
 
-const BaseForm = () => {
+const UserForm = () => {
     
   const { 
     register,
@@ -127,4 +127,4 @@ const BaseForm = () => {
     </div>
   );
 }
-export default BaseForm;
+export default UserForm;
