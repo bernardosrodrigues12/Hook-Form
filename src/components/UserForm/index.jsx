@@ -2,19 +2,39 @@ import { useForm } from 'react-hook-form';
 import styles from './UserForm.module.css'
 import isEmail from 'validator/lib/isEmail';
 
+/**
+ * Componente UserForm
+ * 
+ * Um componente React que implementa um formulário de registro de usuário usando react-hook-form.
+ * Recursos incluem:
+ * - Validação de nome
+ * - Validação de email usando validator.js
+ * - Senha com requisito de comprimento mínimo
+ * - Confirmação de senha correspondente
+ * - Seleção de função/cargo
+ * - Gerenciamento de estado do formulário e tratamento de erros
+ * 
+ * @returns {JSX.Element} Um componente de formulário para registro de usuário
+ */
 const UserForm = () => {
     
+  // Inicializa o react-hook-form com seus métodos essenciais
   const { 
-    register,
-    handleSubmit, 
-    watch,
-    formState: {errors} 
+    register,      // Função para registrar campos do formulário
+    handleSubmit,  // Função para lidar com o envio do formulário
+    watch,         // Função para observar mudanças nos campos do formulário
+    formState: {errors}  // Objeto contendo o estado de erros do formulário
   } = useForm();
 
+  /**
+   * Manipula o envio do formulário
+   * @param {Object} data - O objeto de dados do formulário contendo todos os valores dos campos
+   */
   const onSubmit = (data) => {
     console.log(data);
   }
 
+  // Observa o campo de senha para validação da confirmação
   const watchPassword = watch('password');
 
   return (
@@ -24,6 +44,7 @@ const UserForm = () => {
 
         <div className={styles.field}>
           <label className={styles.label}>Name</label>
+          {/* Campo de entrada de nome com validação obrigatória */}
           <input
             className={errors?.name ? styles.inputError : styles.input}
             type="text"
@@ -38,6 +59,7 @@ const UserForm = () => {
 
         <div className={styles.field}>
           <label className={styles.label}>Email</label>
+          {/* Campo de email com validação obrigatória e de formato usando isEmail */}
           <input
             className={errors?.email ? styles.inputError : styles.input}
             type="email"
@@ -61,6 +83,7 @@ const UserForm = () => {
 
         <div className={styles.field}>
           <label className={styles.label}>Password</label>
+          {/* Campo de senha com validação obrigatória e de comprimento mínimo */}
           <input
             className={errors?.password ? styles.inputError : styles.input}
             type="password"
@@ -79,13 +102,14 @@ const UserForm = () => {
 
         <div className={styles.field}>
           <label className={styles.label}>Password Confirmation</label>
+          {/* Campo de confirmação de senha com validação de correspondência */}
           <input
             className={errors?.passwordConfirmation ? styles.inputError : styles.input}
             type="password"
             placeholder="Type your password again"
             {...register('passwordConfirmation', {
               required: true, 
-              validate: (value) => value === watchPassword,
+              validate: (value) => value === watchPassword, // Validate password match
             })}
             />
 
@@ -102,9 +126,10 @@ const UserForm = () => {
 
         <div className={styles.field}>
           <label className={styles.label}>Role</label>
+          {/* Lista suspensa de seleção de cargo com validação para garantir que um cargo seja selecionado */}
           <select className={styles.select}
             {...register("role", { validate: (value) => {
-              return value !== '0';
+              return value !== '0'; // Valida se um cargo diferente do padrão foi selecionado
             }})}
             >
             <option value='0'>Choose your Role ... </option>
